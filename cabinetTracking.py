@@ -5,7 +5,7 @@ import numpy as np
 import pyzbar.pyzbar as pyzbar
 
 
-vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture(1)
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 olret, oldFrame = vid.read()
@@ -19,13 +19,18 @@ gs_border = 3
 while True:
     ret, frame = vid.read()
 
+    #frame = cv2.flip(frame, 1)
+    
+    frame = cv2.blur(frame, (3,3))
+    #frame = cv2.resize(frame,(420, 420) )
+
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     ret, thresh = cv2.threshold(gray, 127, 255, 0)
 
     edges = cv2.Canny(gray, 50, 150)
 
-    contours, hierarchy = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours(edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
     #frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     #frame = cv2.GaussianBlur(frame, (k_size, k_size), gs_border)
@@ -55,18 +60,18 @@ while True:
             #print(_cx)
             #print(_cy)
             color = hsv[_cy, i, 0]
-            print(color)
+            #print(color)
 
             #if(color < 5 or color > 160): None
             if (color < 10 or color > 155):
-                if 'R' not in code: code = code + 'R'
+                if '1' not in code: code = code + '1'
             elif (50 < color < 85):
-                if 'G' not in code: code = code + 'G'
+                if '2' not in code: code = code + '2'
             elif (28 < color < 35):
                 #if 'Y' not in code: code = code + 'Y'
                 None
             elif (100 < color < 130 ):
-                if 'B' not in code: code = code + 'B'
+                if '3' not in code: code = code + '3'
             else:
                 None
         cv2.drawContours(frame, filtCnt, -1, (255,255,0), 1)
