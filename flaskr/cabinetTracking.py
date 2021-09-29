@@ -1,12 +1,11 @@
 import cv2
-import pytesseract
 import time
 import numpy as np
 import pyzbar.pyzbar as pyzbar
 
 
 vid = cv2.VideoCapture(1)
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 olret, oldFrame = vid.read()
 text = 'none'

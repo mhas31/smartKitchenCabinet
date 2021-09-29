@@ -9,7 +9,7 @@ class ItemTracker:
         self.minContourSize = 950
         self.itemsFound = []
     
-    def scan(self, numFrames):
+    def scan(self, numFrames=50):
         self.itemsFound = []
         for i in range(numFrames):
             ret, frame = self.vid.read()
@@ -90,7 +90,7 @@ class ItemTracker:
             
 
 
-item = ItemTracker(1)
+# item = ItemTracker(1)
 
-print(item.scan(50))
+# print(item.scan(50))
 

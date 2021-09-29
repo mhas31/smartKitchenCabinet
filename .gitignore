@@ -1,1 +1,3 @@
 cabinetvenv/
+__pycache__/
+flaskr/__pycache__/
